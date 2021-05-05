@@ -14,17 +14,33 @@ function saveToLocalStorage() {
   window.localStorage.setItem('library', JSON.stringify(library));
 }
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-  this.info = function () {
-    console.log(`${title} by ${author}, ${pages} pages, ${this.read}`);
-  };
+// Refactoring
+
+const Book = (myTitle, myAuthor, myPages, myRead) => {
+  let title =  myTitle 
+  let author = myAuthor 
+  let pages = myPages 
+  let read = myRead 
+
+  const info = () => {
+    console.log(`${title} by ${author}, ${pages} pages, ${read}`);
+  }
+
+  return { title, author, pages, read }
 }
 
+// function Book(title, author, pages, read) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.read = read;
+//   this.info = function () {
+//     console.log(`${title} by ${author}, ${pages} pages, ${this.read}`);
+//   };
+// }
+
 function addBookToLibrary(obj) {
+
   library.push(obj);
 }
 
@@ -49,7 +65,7 @@ function removeBook(bookID) {
 
 function changeStatus(bookID) {
   const book = library[bookID];
-  console.log(book);
+  console.log(`book to change status${book}`);
   if (book.read) {
     book.read = false;
   } else {
@@ -71,10 +87,11 @@ document
     const newNumPages = document.getElementById('num_pages').value;
     const newCheckbox = document.getElementById('read').checked;
 
-    const newBook = new Book(newTitle, newAuthor, newNumPages, newCheckbox);
+    const newBook = Book(newTitle, newAuthor, newNumPages, newCheckbox);
+    // console.log(`new book: ${newBook}`)
     addBookToLibrary(newBook);
 
-    console.log(newBook);
+    // console.log(newBook);
 
     index();
   });
