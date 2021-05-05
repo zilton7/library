@@ -1,3 +1,14 @@
+let new_book_button = document.querySelector('#new-book');
+let newButtonForm = document.querySelector('.hidden-form');
+
+new_book_button.addEventListener('click', () => {
+  newButtonForm.classList.toggle('ninja')
+})
+
+
+
+
+// logic for library
 let library = [];
 
 function Book(title, author, pages, read) {
