@@ -24,7 +24,20 @@ function addBookToLibrary(obj) {
 }
 
 const book1 = new Book("Whatever", "Johnny Johnson", 300, true);
+const book2 = new Book("Other Book", "Johnny Johnson", 400, false);
 
 addBookToLibrary(book1);
+addBookToLibrary(book2);
 
-console.log(library);
+function index() {
+  let table = document.getElementById("book-table");
+
+  library.forEach((book) => {
+    let book_data = `<tr><td>${book.title}</td><td>${book.author}</td><td>${
+      book.pages
+    }</td><td>${book.already_read()}</td></tr>`;
+    table.innerHTML += book_data;
+  });
+}
+
+index();
