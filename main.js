@@ -6,8 +6,16 @@ new_book_button.addEventListener("click", () => {
   newButtonForm.classList.toggle("ninja");
 });
 
+// LocalStorage stuff
+function saveToLocalStorage() {
+  window.localStorage.setItem("library", JSON.stringify(library));
+}
+
 // logic for library
 let library = [];
+if (localStorage.getItem("library") !== null) {
+  library = JSON.parse(window.localStorage.getItem("library"));
+}
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -23,11 +31,11 @@ function addBookToLibrary(obj) {
   library.push(obj);
 }
 
-const book1 = new Book("Whatever", "Johnny Johnson", 300, true);
-const book2 = new Book("Other Book", "Johnny Johnson", 400, false);
+// const book1 = new Book("Whatever", "Johnny Johnson", 300, true);
+// const book2 = new Book("Other Book", "Johnny Johnson", 400, false);
 
-addBookToLibrary(book1);
-addBookToLibrary(book2);
+// addBookToLibrary(book1);
+// addBookToLibrary(book2);
 
 function removeBook(book_id) {
   library.splice(book_id, 1);
@@ -48,7 +56,6 @@ function changeStatus(book_id) {
 
 function index() {
   let table = document.getElementById("book-table");
-
   table.innerHTML =
     "<tr><th> Title</th ><th>Author</th><th>Pages</th><th>Read?</th><th>Remove Book</th></tr>";
   let iter = 0;
@@ -57,6 +64,8 @@ function index() {
     table.innerHTML += book_data;
     iter++;
   });
+
+  saveToLocalStorage();
 }
 
 index();
