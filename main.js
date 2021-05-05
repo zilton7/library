@@ -14,17 +14,8 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.already_read = function () {
-    if (read == true) {
-      return "already read";
-    } else {
-      return "not read yet";
-    }
-  };
   this.info = function () {
-    console.log(
-      `${title} by ${author}, ${pages} pages, ${this.already_read()}`
-    );
+    console.log(`${title} by ${author}, ${pages} pages, ${this.read}`);
   };
 }
 
@@ -43,16 +34,26 @@ function removeBook(book_id) {
   index();
 }
 
+function changeStatus(book_id) {
+  let book = library[book_id];
+  console.log(book);
+  if (book.read) {
+    book.read = false;
+  } else {
+    book.read = true;
+  }
+
+  index();
+}
+
 function index() {
   let table = document.getElementById("book-table");
 
   table.innerHTML =
-    "<tr><th> Title</th ><th>Author</th><th>Pages</th><th>Status</th><th>Remove Book</th></tr>";
+    "<tr><th> Title</th ><th>Author</th><th>Pages</th><th>Read?</th><th>Remove Book</th></tr>";
   let iter = 0;
   library.forEach((book) => {
-    let book_data = `<tr><td>${book.title}</td><td>${book.author}</td><td>${
-      book.pages
-    }</td><td>${book.already_read()}</td><th><a onclick="removeBook(${iter});" href="#" class="remove-button color-red">X</a></th></tr>`;
+    let book_data = `<tr><td>${book.title}</td><td>${book.author}</td><td>${book.pages}</td><td><a href="#" onclick="changeStatus(${iter});">${book.read}</a></td><th><a onclick="removeBook(${iter});" href="#" class="remove-button color-red">X</a></th></tr>`;
     table.innerHTML += book_data;
     iter++;
   });
