@@ -1,4 +1,4 @@
-# Project Name
+# JavaScript Library
 In this project we created a simple library logging website, where you can add books to the library, remove books, and set the books that you have to read/unread.
 
 The library is stored in the browser's localStorage, so that it persists between sessions, and browser closure.
